@@ -1,5 +1,4 @@
-try:
-    arquivo=open("binary", "jpg", "rb")
-    print(type(arquivo))
-except:
-    print('arquivo não existe!-_- ')
+arquivo=open("numeros.txt","w')
+for linha in range(1,101):
+    arquivo.write("%d\n" % linha)
+arquivo.close()
