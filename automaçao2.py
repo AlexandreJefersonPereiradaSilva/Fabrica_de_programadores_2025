@@ -1,0 +1,18 @@
+import pyautogui as fs1
+
+fs1.moveTo(988,1048,duration=2)
+fs1.click()
+fs1.sleep(1)
+fs1.moveTo(1028,13,duration=1)
+fs1.click()
+fs1.moveTo(687,20)
+fs1.click()
+fs1.typewrite("steam", interval=0.1)
+fs1.press('enter')
+fs1.moveTo(554,304,duration=1)
+fs1.click()
+fs1.sleep(1)
+fs1.moveTo(415,806)
+fs1.click()
+fs1.sleep(1)
+fs1.moveRel(789,300)
