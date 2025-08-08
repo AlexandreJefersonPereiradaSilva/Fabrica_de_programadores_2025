@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+
+<SITE>
+
+<RAT_PRODUCTION></RAT_PRODUCTION>
+<AUTOR>Alexandre Jeferson</AUTOR>
+
+<LIVROS_EM_DESTAQUE>
+
+<LIVRO> Aventuras em Play Togheder <LIVRO>
+<data>12/07/2025<data>
+<preço>R$50,00<preço>
+<genero>Aventura/Mistêrio/fantasia<genero>
+
+<LIVRO> Ratken: Ascenção do Veneno <LIVRO>
+<data>10/11/2019<data>
+<preço>R$50,00<preço>
+<genero>Heroi/Ação<genero>
+
+<LIVRO> Homem das sombras<LIVRO>
+<data>27/05/2017<data>
+<preço>R$50,00<preço>
+<genero>Heroi/ação<genero>
+
+<LIVRO> Homem das Sombras:Alan Walker <LIVRO>
+<data>20/10/2018<data>
+<preço>R$50,00<preço>
+<genero>Heroi/Terror/mistêrio<genero>
+
+<LIVRO> Os Protetores:Guerra Sombria <LIVRO>
+<data>20/08/2021<data>
+<preço>R$50,00<preço>
+<genero>Heroi/Ação<genero>
