@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Faculdade NovaHorizonte</title>
+  <style>
+    :root{
+      --accent:#0b6efd;
+      --muted:#6b7280;
+    }
+    body{margin:0;font-family:sans-serif;background:#f9fbff;color:#111;line-height:1.5}
+    .container{padding:16px;max-width:960px;margin:auto}
+    header,footer{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap}
+    .logo{background:var(--accent);color:#fff;font-weight:bold;padding:10px;border-radius:8px}
+    nav a{margin:0 8px;color:var(--accent);text-decoration:none}
+    .btn{background:var(--accent);color:white;padding:10px 14px;border-radius:8px;display:inline-block;text-align:center}
+    .hero{text-align:center;padding:40px 0}
+    .card{background:#fff;padding:16px;margin:20px 0;border-radius:12px;box-shadow:0 2px 6px rgba(0,0,0,.05)}
+    .preview{margin-top:12px;padding:12px;border:1px dashed #ccc;border-radius:8px;text-align:center;font-size:14px}
+    form{display:grid;gap:10px}
+    input,textarea,select{padding:10px;border:1px solid #ccc;border-radius:8px}
+    @media(min-width:768px){
+      .hero{display:grid;grid-template-columns:1fr 1fr;align-items:center;text-align:left;gap:20px}
+    }
+  </style>
+</head>
+<body>
+  <header class="container">
+    <div class="logo">NH</div>
+    <nav>
+      <a href="#cursos">Cursos</a>
+      <a href="#documentos">Documentos</a>
+      <a class="btn" href="#cadastro">Cadastre-se</a>
+    </nav>
+  </header>
+
+  <main class="container">
+    <section class="hero">
+      <div>
+        <h1>Faculdade NovaHorizonte</h1>
+        <p>Inscrições abertas para 2026. Construa seu futuro conosco!</p>
+        <a href="#cadastro" class="btn">Quero me cadastrar</a>
+      </div>
+    </section>
+
+    <!-- Selector de documentos -->
+    <section id="documentos" class="card">
+      <h2>Documentos</h2>
+      <select id="docSelect" onchange="onDocumentChange()">
+        <option value="">— Selecionar documento —</option>
+        <option value="{{ url_for('static', filename='docs/prospecto.pdf') }}">Prospecto</option>
+        <option value="{{ url_for('static', filename='docs/grade.pdf') }}">Grade Curricular</option>
+      </select>
+      <input type="file" id="fileInput" accept="application/pdf" onchange="onFileUpload(event)">
+      <div id="preview" class="preview">Nenhum documento selecionado</div>
+    </section>
+
+    <!-- Formulário que envia para o Flask -->
+    <section id="cadastro" class="card">
+      <h2>Cadastro de Usuário + Nota</h2>
+      <form id="cadastroForm" onsubmit="submitForm(event)">
+        <input type="text" id="usuario" placeholder="Nome do usuário" required>
+        <input type="email" id="email" placeholder="E-mail" required>
+        <input type="password" id="senha" placeholder="Senha" required>
+        <input type="text" id="titulo" placeholder="Título da nota" required>
+        <textarea id="nota" placeholder="Conteúdo da nota" required></textarea>
+        <button type="submit" class="btn">Cadastrar</button>
+      </form>
+    </section>
+  </main>
+
+  <footer class="container">
+    <p>© 2025 Faculdade NovaHorizonte</p>
+  </footer>
+
+  <script>
+    function onDocumentChange(){
+      const sel = document.getElementById('docSelect');
+      const preview = document.getElementById('preview');
+      if(!sel.value){ preview.innerHTML = 'Nenhum documento selecionado'; return; }
+      preview.innerHTML = `<iframe src="${sel.value}" width="100%" height="400"></iframe>`;
+    }
+
+    function onFileUpload(event){
+      const file = event.target.files[0];
+      if(!file) return;
+      if(file.type !== 'application/pdf'){ alert("Apenas PDF permitido!"); return; }
+      const url = URL.createObjectURL(file);
+      const preview = document.getElementById('preview');
+      preview.innerHTML = `<iframe src="${url}" width="100%" height="400"></iframe>`;
+    }
+
+    function submitForm(event){
+      event.preventDefault();
+      const data = {
+        usuario: document.getElementById("usuario").value,
+        email: document.getElementById("email").value,
+        senha: document.getElementById("senha").value,
+        titulo: document.getElementById("titulo").value,
+        nota: document.getElementById("nota").value
+      };
+      fetch("/", {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify(data)
+      }).then(r=>r.json()).then(res=>{
+        alert(res.message);
+        document.getElementById("cadastroForm").reset();
+      }).catch(err=>{
+        alert("Erro ao enviar: " + err);
+      });
+    }
+  </script>
+</body>
+</html>
